@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Senin İçin</title>
+
+    <style>
+        body {
+          font-family: 'Arial', sans-serif;
+          background-color: #fff0f5;
+          color: #333;
+          margin: 0;
+          padding: 0;
+          text-align: center;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          gap: 20px;
+          padding: 10px;
+          box-sizing: border-box;
+        }
+        .header-box {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #ffb6c1;
+            padding: 10px 20px;
+            border-radius: 12px;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+            font-weight: bold;
+            font-size: 18px;
+            color: #4b0082;
+            z-index: 999;
+        }
+        .container {
+          padding: 40px;
+        }
+        h1 {
+          color: #c71585;
+        }
+        .memory {
+          margin: 20px auto;
+          padding: 20px;
+          background: #ffe4e1;
+          border-radius: 15px;
+          max-width: 500px;
+        }
+        .btn {
+          margin-top: 30px;
+          background-color: #ff69b4;
+          color: white;
+          padding: 15px 25px;
+          border: none;
+          border-radius: 30px;
+          font-size: 18px;
+          cursor: pointer;
+          transition: 0.3s;
+        }
+        .btn:hover {
+          background-color: #db3f89;
+        }
+        
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        /* Büyük resim */
+        #mainImage {
+            width: 600px;
+            max-width: 90vw;
+            height: auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            margin-bottom: 15px;
+        }
+
+        /* Küçük resimler */
+        .thumbnails {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .thumbnails img {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.2s ease;
+            border: 2px solid transparent;
+        }
+        .thumbnails img:hover, .thumbnails img.active {
+            transform: scale(1.05);
+            border-color: #ff69b4;
+            box-shadow: 0 2px 8px rgba(255, 105, 180, 0.5);
+        }
+
+        /* Mobil için */
+        @media (max-width: 600px) {
+            #mainImage {
+                width: 95vw;
+            }
+            .thumbnails {
+                flex-wrap: wrap;
+            }
+            .thumbnails img {
+                width: 30vw;
+                height: auto;
+            }
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background-color: #ff69b4;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            padding: 0;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(255, 105, 180, 0.5);
+            transition: background-color 0.3s, transform 0.2s;
+            cursor: pointer;
+        }
+        .back-btn:hover {
+            background-color: #ff85c1;
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(255, 105, 180, 0.7);
+        }
+
+        /* Yazı kısmı */
+        .poem {
+          max-width: 500px;
+          margin: 0 auto;
+          background: #ffe4e1;
+          padding: 15px 25px;
+          border-radius: 15px;
+          font-size: 18px;
+          color: #4b0082;
+          line-height: 1.5;
+        }
+    </style>
+
+</head>
+<body>
+
+    <!-- Geri Butonu -->
+    <button onclick="history.back()" class="back-btn" aria-label="Geri Git">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
+          <path d="M15 18l-6-6 6-6" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <!-- Büyük Ana Resim -->
+    <img id="mainImage" src="bebek_aybuke.png" alt="Aybüke" />
+
+    <!-- Müzik Butonu - Şimdi burda -->
+    <button id="playPause" class="btn">MÜZİĞİ OYNAT SEVGİLİM</button>
+
+    <!-- Küçük Resimler -->
+    <div class="thumbnails">
+        <img src="bebek_aybuke.png" alt="Bebek Aybüke" onclick="changeImage(this)" class="active" />
+        <img src="kucuk_aybuke.png" alt="Küçük Aybüke" onclick="changeImage(this)" />
+        <img src="minik_aybuke.png" alt="Minik Aybüke" onclick="changeImage(this)" />
+    </div>
+
+    <!-- Şiir -->
+    <div class="poem">
+        <p>Veda tepelerinde sessiz bir gece,</p>
+        <p>Aybüke doğdu, sevgiyle birlikte.</p>
+
+        <p>Annenin kalbi umutla dolu,</p>
+        <p>Babası gözlerinde ışık yolu.</p>
+
+        <p>Küçük elleri dünyaya açılır,</p>
+        <p>Sevgiyle büyür, her adımı parlar.</p>
+
+        <p>Bir yıldız gibi doğdu Aybüke,</p>
+        <p>Evimizin en güzel şarkısı şimdi.</p>
+    </div>
+
+    <script>
+      // Müzik kodu
+      const audio = new Audio('ses.mp3');  // ses dosyanın yolu doğru olmalı
+      audio.loop = true;
+      audio.muted = true;  // otomatik çalmak için başlangıçta sessiz
+
+      window.addEventListener('load', () => {
+        audio.play().catch(() => {
+          console.log('Otomatik oynatma engellendi, butona basılmalı');
+        });
+      });
+
+      const btn = document.getElementById('playPause');
+      let playing = false;
+
+      btn.addEventListener('click', () => {
+        if (!playing) {
+          audio.muted = false;
+          audio.play();
+          btn.textContent = 'Durdur';
+          playing = true;
+        } else {
+          audio.pause();
+          btn.textContent = 'MÜZİĞİ OYNAT SEVGİLİM';
+          playing = false;
+        }
+      });
+
+      // Resim değiştirme fonksiyonu
+      function changeImage(element) {
+        const mainImage = document.getElementById('mainImage');
+
+        // Ana resmin src'sini küçük resmin src'si ile değiştir
+        mainImage.src = element.src;
+
+        // Küçük resimlerde aktif olanı vurgula
+        document.querySelectorAll('.thumbnails img').forEach(img => {
+          img.classList.remove('active');
+        });
+        element.classList.add('active');
+      }
+    </script>
+
+</body>
+</html>
